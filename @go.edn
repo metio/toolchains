@@ -1,0 +1,15 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=golang-version depName=go
+           "go@1.27.3"
+           ;; renovate: datasource=github-releases depName=dominikh/go-tools
+           "staticcheck@2026.2.2"
+           ;; renovate: datasource=github-releases depName=securego/gosec extractVersion=^v(?<version>.+)$
+           "gosec@2.30.0"
+           ;; renovate: datasource=github-releases depName=mvdan/gofumpt extractVersion=^v(?<version>.+)$
+           "gofumpt@0.12.0"
+           ;; renovate: datasource=github-releases depName=arch-go/arch-go extractVersion=^v(?<version>.+)$
+           "arch-go@2.1.2"
+           ;; renovate: datasource=github-releases depName=go-delve/delve extractVersion=^v(?<version>.+)$
+           "delve@1.27.2"]}

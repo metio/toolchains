@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: The toolchains Authors
+# SPDX-License-Identifier: 0BSD
+
+version = 1
+
+# JSON can't carry inline comments.
+[[annotations]]
+path = "renovate.json"
+precedence = "override"
+SPDX-FileCopyrightText = "The toolchains Authors"
+SPDX-License-Identifier = "0BSD"

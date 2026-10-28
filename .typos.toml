@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: The toolchains Authors
+# SPDX-License-Identifier: 0BSD
+
+[default.extend-words]
+edn = "edn"
