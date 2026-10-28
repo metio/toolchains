@@ -12,4 +12,10 @@
            ;; renovate: datasource=github-releases depName=arch-go/arch-go extractVersion=^v(?<version>.+)$
            "arch-go@2.1.2"
            ;; renovate: datasource=github-releases depName=go-delve/delve extractVersion=^v(?<version>.+)$
-           "delve@1.27.2"]}
+           "delve@1.27.2"
+           ;; renovate: datasource=go depName=golang.org/x/vuln extractVersion=^v(?<version>.+)$
+           "govulncheck@1.9.0"
+           ;; renovate: datasource=go depName=golang.org/x/tools/gopls extractVersion=^v(?<version>.+)$
+           "gopls@0.24.0"
+           ;; renovate: datasource=go depName=golang.org/x/tools extractVersion=^v(?<version>.+)$
+           "modernize@0.52.0"]}

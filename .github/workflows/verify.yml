@@ -15,22 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6
-  groups:
+  lock:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           repository: metio/breto
-          path: breto
+          path: .breto
       - uses: metio/nix-devshell@d0c25fdb0d2c08f23bc62c867317a266b6f1a5c1 # 2026.9.12204255
-      - name: Install the pinned versions of every group
+      - name: Check that breto.lock pins every version the groups name
         env:
           GITHUB_TOKEN: ${{ github.token }}
           XDG_STATE_HOME: ${{ runner.temp }}/state
         run: |
-          printf '{:registries ["%s/breto/packages" "%s"] :store "%s/store" :bin-dir "%s/bin"}\n' \
+          printf '{:registries ["%s/.breto/packages" "%s"] :store "%s/store" :bin-dir "%s/bin"}\n' \
             "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE" "$RUNNER_TEMP" "$RUNNER_TEMP" > "$RUNNER_TEMP/config.edn"
-          for group in @*.edn; do
-            nix develop ./breto --command ./breto/breto install "${group%.edn}" --config "$RUNNER_TEMP/config.edn"
-          done
+          nix develop ./.breto --command ./.breto/breto lock . --check --config "$RUNNER_TEMP/config.edn"

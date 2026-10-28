@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: The toolchains Authors
+# SPDX-License-Identifier: 0BSD
+
+name: Lock
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+jobs:
+  lock:
+    # Renovate's branches only: the job pushes with an app token, which a pull
+    # request from a fork must never reach.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.head.repo.full_name == github.repository &&
+       startsWith(github.head_ref, 'renovate/'))
+    runs-on: ubuntu-latest
+    steps:
+      - id: token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.LOCK_APP_CLIENT_ID }}
+          private-key: ${{ secrets.LOCK_APP_PRIVATE_KEY }}
+          permission-contents: write
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ steps.token.outputs.token }}
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          repository: metio/breto
+          path: .breto
+          persist-credentials: false
+      - uses: metio/nix-devshell@d0c25fdb0d2c08f23bc62c867317a266b6f1a5c1 # 2026.9.12204255
+      - name: Record the hashes of the pinned versions
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          XDG_STATE_HOME: ${{ runner.temp }}/state
+        run: |
+          printf '{:registries ["%s/.breto/packages" "%s"] :store "%s/store" :bin-dir "%s/bin"}\n' \
+            "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE" "$RUNNER_TEMP" "$RUNNER_TEMP" > "$RUNNER_TEMP/config.edn"
+          nix develop ./.breto --command ./.breto/breto lock . --config "$RUNNER_TEMP/config.edn"
+      - name: Push the lock file
+        env:
+          APP_SLUG: ${{ steps.token.outputs.app-slug }}
+        run: |
+          if git diff --quiet -- breto.lock && git ls-files --error-unmatch breto.lock >/dev/null 2>&1; then
+            echo "breto.lock is up to date"
+            exit 0
+          fi
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
+          git add breto.lock
+          git commit --message "chore: lock the pinned versions"
+          git push

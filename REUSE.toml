@@ -3,9 +3,9 @@
 
 version = 1
 
-# JSON can't carry inline comments.
+# breto rewrites breto.lock, and JSON can't carry inline comments.
 [[annotations]]
-path = "renovate.json"
+path = ["renovate.json", "breto.lock"]
 precedence = "override"
 SPDX-FileCopyrightText = "The toolchains Authors"
 SPDX-License-Identifier = "0BSD"
