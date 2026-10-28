@@ -27,6 +27,7 @@ A project then names the group in its `.breto.edn`:
 | Group | Tools |
 | --- | --- |
 | `@go` | go, staticcheck, gosec, gofumpt, arch-go, delve, govulncheck, gopls, modernize |
+| `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor |
 
 ## Lock file
 
@@ -40,6 +41,10 @@ CI writes the file, so a Renovate bump needs nothing run locally:
 4. Renovate merges once the checks pass, and machines pick the change up with their next pull and `breto sync`.
 
 The App needs the `Contents: write` permission on this repository. Its client ID goes into the repository variable `LOCK_APP_CLIENT_ID` and a private key into the secret `LOCK_APP_PRIVATE_KEY`. The workflow only runs for branches named `renovate/*` in this repository, and on manual dispatch, which locks the branch it runs on; a dispatch on `main` creates the first lock file.
+
+## Lint
+
+`@lint` holds the checks most repositories run in CI. reuse and yamllint come from PyPI, so breto installs them with uv, which the group pins as well; their lock entries pin every dependency by hash together with the cut-off time of the resolution. markdownlint-cli2 is published only on npm, which breto cannot install from, so a repository that lints Markdown still needs it from elsewhere.
 
 ## Go
 
