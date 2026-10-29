@@ -1,0 +1,22 @@
+{"actionlint@1.7.12" {:sha256 "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8" :asset "actionlint_1.7.12_linux_amd64.tar.gz"}
+ "arch-go@2.1.2" {:sha256 "edcb2f5e12976a4aab01d5bc3de8bc7314cde824dd04f4860ce44f4380b90d96" :asset "arch-go_v2.1.2_linux_amd64.tar.gz"}
+ "delve@1.27.2" {:sha256 "30783eb68dc1598d965491cc97762270cd63ce13f09d0cac22faa7e3eafc1b9c" :asset "dlv_1.27.2_linux_amd64.tar.gz"}
+ "go@1.27.3" {:sha256 "65efbc80fdc1fa2cd2631cad5b481777a68e8725f34e89f50fc6ac714e379b40" :asset "go1.27.3.linux-amd64.tar.gz"}
+ "gofumpt@0.12.0" {:sha256 "3bc4fcad497439918f5f56d4987de4709a99da0a355e6bec13a7278532b01d38" :asset "gofumpt_v0.12.0_linux_amd64"}
+ "gopls@0.24.0" {:sum "h1:nPO/LffYa4sP62Ueuema5PPnZPGaZjGl+vZGvbTek4g="}
+ "gosec@2.30.0" {:sha256 "3fcce2c4e802ff4169217874602a7df355e9a37bcb6ffaa34b08f3d5f336cdfb" :asset "gosec_2.30.0_linux_amd64.tar.gz"}
+ "govulncheck@1.9.0" {:sum "h1:12VaqnI9kJfqwRoPptxoqsUhQtdfrSbdksT7X/KY/sc="}
+ "harper-cli@3.0.0" {:sha256 "d136a76d75cfc95d778da1aedc36958faa90cf47f43801f4cbfc7b8323d5404a" :asset "harper-cli-x86_64-unknown-linux-gnu.tar.gz"}
+ "helm-schema@0.24.0" {:sha256 "0a075160075216d820385aa3dfb738052fee6cea56802de1551d1bda60c26f36" :asset "helm-schema_0.24.0_Linux_x86_64.tar.gz"}
+ "helm-unittest@1.2.1" {:sha256 "48e86ecc1467b009630e5954375e5d8494139f73b466df5fe8c04fa45b634939" :asset "helm-unittest-linux-amd64-1.2.1.tgz"}
+ "helm@4.3.1" {:sha256 "0403a88ae20913d11b10a2467b50087721fea7581736da6b9d3992f5357fe54b" :asset "helm-v4.3.1-linux-amd64.tar.gz"}
+ "markdownlint-cli2@0.24.0" {:sha256 "bc372eb1a8dc3629e52f07758260bac7f191daf37d5a5c5f7731112abf3acb94" :asset "package-lock.json" :exclude-newer "2026-10-29T21:55:53Z"}
+ "modernize@0.52.0" {:sum "h1:ryxg4U63oaUYk7uOLTF37n43f4qgtGvqV4Ioit1BaEs="}
+ "node@26.13.0" {:sha256 "d28a96af6c38596f6d9d97c0ee531c13d238d757742387d1928de822d959e997" :asset "node-v26.13.0-linux-x64.tar.xz"}
+ "reuse@6.2.0" {:sha256 "3885d95a787c412c1238c89d7caf9a66e4764582ad730718dbea8a5b0f3037a2" :asset "requirements.txt" :exclude-newer "2026-10-29T21:56:52Z"}
+ "shellcheck@0.11.0" {:sha256 "b7af85e41cc99489dcc21d66c6d5f3685138f06d34651e6d34b42ec6d54fe6f6" :asset "shellcheck-v0.11.0.linux.x86_64.tar.gz"}
+ "staticcheck@2026.2.2" {:sha256 "14c081e0f0d05b5a4d4c53fd3d357d4a5af9d20501465fefc9024ee828d3aa5c" :asset "staticcheck_linux_amd64.tar.gz"}
+ "typos@1.51.1" {:sha256 "93c301fd4120ff076e2cc2a6d6a61cab4a4bdb81899287c0938b452e56d1f454" :asset "typos-v1.51.1-x86_64-unknown-linux-musl.tar.gz"}
+ "uv@0.13.6" {:sha256 "f29c3e94ffabd7e6f3ba521dba169a9b7ec12100bf3257087f0f24f6123f3645" :asset "uv-x86_64-unknown-linux-gnu.tar.gz"}
+ "yamllint@1.38.0" {:sha256 "5c403b1afb058e6ffb6a3c00a66bb3888c0ea2fb9a0795a20b4ec5ec6e0e647e" :asset "requirements.txt" :exclude-newer "2026-10-29T21:56:55Z"}
+ "zizmor@1.31.1" {:sha256 "d185f726bdaf92df78273217dfdd24ebcd6b0ef48cf3ce776ff5762b6e138c99" :asset "zizmor-x86_64-unknown-linux-gnu.tar.gz"}}

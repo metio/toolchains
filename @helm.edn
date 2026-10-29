@@ -1,0 +1,9 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=helm/helm extractVersion=^v(?<version>.+)$
+           "helm@4.3.1"
+           ;; renovate: datasource=github-releases depName=dadav/helm-schema
+           "helm-schema@0.24.0"
+           ;; renovate: datasource=github-releases depName=helm-unittest/helm-unittest extractVersion=^v(?<version>.+)$
+           "helm-unittest@1.2.1"]}

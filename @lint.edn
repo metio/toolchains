@@ -16,4 +16,8 @@
            ;; renovate: datasource=github-releases depName=Automattic/harper extractVersion=^v(?<version>.+)$
            "harper-cli@3.0.0"
            ;; renovate: datasource=github-releases depName=zizmorcore/zizmor extractVersion=^v(?<version>.+)$
-           "zizmor@1.31.1"]}
+           "zizmor@1.31.1"
+           ;; renovate: datasource=node-version depName=node
+           "node@26.13.0"
+           ;; renovate: datasource=npm depName=markdownlint-cli2
+           "markdownlint-cli2@0.24.0"]}

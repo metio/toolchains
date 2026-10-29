@@ -27,7 +27,8 @@ A project then names the group in its `.breto.edn`:
 | Group | Tools |
 | --- | --- |
 | `@go` | go, staticcheck, gosec, gofumpt, arch-go, delve, govulncheck, gopls, modernize |
-| `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor |
+| `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2 |
+| `@helm` | helm, helm-schema, helm-unittest |
 
 ## Lock file
 
@@ -44,7 +45,11 @@ The App needs the `Contents: write` permission on this repository. Its client ID
 
 ## Lint
 
-`@lint` holds the checks most repositories run in CI. reuse and yamllint come from PyPI, so breto installs them with uv, which the group pins as well; their lock entries pin every dependency by hash together with the cut-off time of the resolution. markdownlint-cli2 is published only on npm, which breto cannot install from, so a repository that lints Markdown still needs it from elsewhere.
+`@lint` holds the checks most repositories run in CI. reuse and yamllint come from PyPI, so breto installs them with uv, which the group pins as well. markdownlint-cli2 comes from npm, so breto installs it with the group's node, which also runs it. Their lock entries pin every dependency by hash together with the cut-off time of the resolution.
+
+## Helm
+
+helm-unittest is a helm plugin and links no command. In a project using `@helm`, `breto env` sets `HELM_PLUGINS` to a directory holding the project's plugins, where `helm unittest` finds it. Outside a project, helm does not see the plugin.
 
 ## Go
 
