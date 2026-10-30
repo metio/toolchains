@@ -31,20 +31,13 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ steps.token.outputs.token }}
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: metio/breto@d9a9820ae0de2f82b205072487e27be96304661a # 2026.10.30054849
         with:
-          repository: metio/breto
-          path: .breto
-          persist-credentials: false
-      - uses: metio/nix-devshell@d0c25fdb0d2c08f23bc62c867317a266b6f1a5c1 # 2026.9.12204255
+          registries: .
       - name: Record the hashes of the pinned versions
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          XDG_STATE_HOME: ${{ runner.temp }}/state
-        run: |
-          printf '{:registries ["%s/.breto/packages" "%s"] :store "%s/store" :bin-dir "%s/bin"}\n' \
-            "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE" "$RUNNER_TEMP" "$RUNNER_TEMP" > "$RUNNER_TEMP/config.edn"
-          nix develop ./.breto --command ./.breto/breto lock . --platforms all --config "$RUNNER_TEMP/config.edn"
+        run: breto lock . --platforms all
       - name: Push the lock file
         env:
           APP_SLUG: ${{ steps.token.outputs.app-slug }}
