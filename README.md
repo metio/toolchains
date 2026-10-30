@@ -52,6 +52,8 @@ A project then names the group in its `.breto.edn`:
 | `@postgres` | postgresql-binaries, with initdb, pg_ctl, postgres and psql |
 | `@clojure` | the `@babashka` group, clj-kondo, and the command `clojure`, which runs `bb clojure` |
 | `@tlaplus` | tla2tools, and the command `tlc`, which runs the TLC model checker on the java of the project |
+| `@rust` | rustup, whose proxies such as `cargo` and `rustc` run the toolchain the project's `rust-toolchain.toml` names, else rustup's default |
+| `@terraform` | terraform |
 
 ## Releases
 

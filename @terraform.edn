@@ -1,0 +1,5 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=hashicorp/terraform extractVersion=^v(?<version>.+)$
+           "terraform@1.17.1"]}
