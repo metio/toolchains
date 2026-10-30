@@ -31,6 +31,10 @@ A project then names the group in its `.breto.edn`:
 | `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2 |
 | `@helm` | helm, helm-schema, helm-unittest |
 
+## Releases
+
+Every change to a group or to `breto.lock` that reaches `main` is released under a calendar version, once `breto lock . --check` passes. A release carries `toolchains-VERSION.tar.gz` with the group files and the lock file, `toolchains_VERSION_SHA256SUMS`, and its cosign bundle `toolchains_VERSION_SHA256SUMS.bundle`, signed keyless by the release workflow.
+
 ## Lock file
 
 `breto.lock` records the hash of every version the groups pin: the SHA-256 of the release asset, or for a tool built with `go install`, the module's `h1:` sum from the Go checksum database. breto reads the lock files of all registry directories, and an install of a pinned version whose download does not match its entry fails. A pinned version without an entry installs with a warning, or fails when the breto config sets `:require-locked true`.

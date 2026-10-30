@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: The toolchains Authors
+# SPDX-License-Identifier: 0BSD
+
+name: Release
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      id-token: write # cosign keyless sign-blob
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: gate
+        uses: metio/ci/needs-release@14ad475c5f5c4c0df727df1a22345298604e66ba # 2026.10.26174650
+        with:
+          paths: "@*.edn breto.lock"
+      - uses: metio/breto@4c3ff90106d75c0d25543cd9305a496d8b67e514 # 2026.10.30064817
+        if: steps.gate.outputs.needed == 'true'
+        with:
+          registries: .
+      - name: Check that breto.lock pins every version the groups name
+        if: steps.gate.outputs.needed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: breto lock . --check
+      - id: version
+        if: steps.gate.outputs.needed == 'true'
+        uses: metio/ci/calver@14ad475c5f5c4c0df727df1a22345298604e66ba # 2026.10.26174650
+      - id: notes
+        name: Generate release notes
+        if: steps.gate.outputs.needed == 'true'
+        uses: metio/ci/release-notes@14ad475c5f5c4c0df727df1a22345298604e66ba # 2026.10.26174650
+        with:
+          version: ${{ steps.version.outputs.version }}
+          previous: ${{ steps.gate.outputs.last }}
+      - name: Archive the groups and their lock file
+        if: steps.gate.outputs.needed == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          mkdir dist
+          tar --create --gzip --file "dist/toolchains-${VERSION}.tar.gz" --sort=name --owner=0 --group=0 --numeric-owner \
+            --mtime="@$(git log -1 --format=%ct)" @*.edn breto.lock
+          (cd dist && sha256sum "toolchains-${VERSION}.tar.gz" > "toolchains_${VERSION}_SHA256SUMS")
+      - name: Sign the checksums
+        if: steps.gate.outputs.needed == 'true'
+        uses: metio/ci/cosign-sign-blob@14ad475c5f5c4c0df727df1a22345298604e66ba # 2026.10.26174650
+        with:
+          file: dist/toolchains_${{ steps.version.outputs.version }}_SHA256SUMS
+      - name: Tag and publish the GitHub release
+        if: steps.gate.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+          SHA: ${{ github.sha }}
+          NOTES: ${{ steps.notes.outputs.file }}
+        run: gh release create "$VERSION" --target "$SHA" --notes-file "$NOTES" --title "$VERSION" dist/*
