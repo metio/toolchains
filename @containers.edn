@@ -1,0 +1,5 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=hadolint/hadolint extractVersion=^v(?<version>.+)$
+           "hadolint@2.15.1"]}

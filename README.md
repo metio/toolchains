@@ -9,11 +9,21 @@ Shared toolchains for [breto](https://github.com/metio/breto): each `@NAME.edn` 
 
 ## Usage
 
-Clone the repository and add the clone to the `:registries` of the breto config:
+Add the published registry to the `:registries` of the breto config:
 
 ```clojure
-{:registries ["~/git/github.com/metio/toolchains"]}
+{:registries [{:github "metio/toolchains"}]}
 ```
+
+breto installs the latest signed release of this repository before the other packages on `breto update` and `breto sync`. In GitHub Actions, the breto action takes the same registry as a line of its `registries` input:
+
+```yaml
+- uses: metio/breto@VERSION
+  with:
+    registries: github:metio/toolchains
+```
+
+A clone works too, as a directory under `:registries`, which is how a change to a group is tried before it is released.
 
 The groups name packages that breto defines; a breto release carries those definitions, so no clone of breto is needed. A group member whose definition only a newer breto release has fails as an unknown package until breto is updated; `breto update` keeps it current when `breto` is in `:packages`.
 
@@ -23,13 +33,15 @@ A project then names the group in its `.breto.edn`:
 {:packages ["@go"]}
 ```
 
-`breto env`, or the prompt hook in breto's `shell/env-hook.bash`, links the pinned versions into the project's bin directory. After a pull brings a new version, `breto update` or `breto sync` installs it and moves every project using the group to it.
+`breto env`, or the prompt hook in breto's `shell/env-hook.bash`, links the pinned versions into the project's bin directory. After a release brings a new version, `breto update` or `breto sync` installs it and moves every project using the group to it.
 
 | Group | Tools |
 | --- | --- |
 | `@go` | go, staticcheck, gosec, gofumpt, arch-go, delve, govulncheck, gopls, modernize |
 | `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2 |
 | `@helm` | helm, helm-schema, helm-unittest |
+| `@babashka` | babashka |
+| `@containers` | hadolint |
 
 ## Releases
 
