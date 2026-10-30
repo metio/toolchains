@@ -1,0 +1,5 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=maven depName=org.apache.maven:apache-maven
+           "maven@3.10.0"]}

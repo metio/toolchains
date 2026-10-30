@@ -45,6 +45,13 @@ A project then names the group in its `.breto.edn`:
 | `@envtest` | envtest, whose `KUBEBUILDER_ASSETS` points controller-runtime's envtest at etcd, kube-apiserver and kubectl |
 | `@docs` | hugo-extended, htmltest, biome, vale |
 | `@jsonnet` | go-jsonnet, jsonnet-bundler |
+| `@jdk17` | temurin-17, which sets `JAVA_HOME` |
+| `@jdk25` | temurin-25, which sets `JAVA_HOME` |
+| `@graalvm` | graalvm-25, which sets `JAVA_HOME` and `GRAALVM_HOME`; Oracle publishes no build for Intel macOS |
+| `@maven` | maven, which runs on the java of the project |
+| `@postgres` | postgresql-binaries, with initdb, pg_ctl, postgres and psql |
+| `@clojure` | the `@babashka` group, clj-kondo, and the command `clojure`, which runs `bb clojure` |
+| `@tlaplus` | tla2tools, and the command `tlc`, which runs the TLC model checker on the java of the project |
 
 ## Releases
 
@@ -67,11 +74,15 @@ The App needs the `Contents: write` permission on this repository. Its client ID
 
 `@lint` holds the checks most repositories run in CI. reuse and yamllint come from PyPI, so breto installs them with uv, which the group pins as well. markdownlint-cli2 comes from npm, so breto installs it with the group's node, which also runs it. Their lock entries pin every dependency by hash together with the cut-off time of the resolution.
 
-The group also defines the commands that run these checks the way CI runs them. In a project naming `@lint`, `breto run ci-lint` runs every one of them, and `ci-reuse`, `ci-typos`, `ci-yaml`, `ci-actionlint`, `ci-markdown` and `ci-harper` run one each, with arguments passed on. `ci-markdown` lints the Markdown git tracks, so ignored directories such as `node_modules` stay out of it. `ci-harper` lints the prose under `docs` and `kb`, or the whole tree when neither exists, with spell checking and title case off; `HARPER_IGNORE` adds further rules to skip. The `Verify` workflow runs `ci-lint` on this repository through its own `.breto.edn`, which names `@lint` and skips the harper rules that lowercase tool names trip.
+The group also defines the commands that run these checks the way CI runs them. In a project naming `@lint`, `breto run ci-lint` runs every one of them, and `ci-reuse`, `ci-typos`, `ci-yaml`, `ci-actionlint`, `ci-zizmor`, `ci-markdown` and `ci-harper` run one each, with arguments passed on. `ci-zizmor` runs [zizmor](https://docs.zizmor.sh) over the repository, which audits workflows, composite actions and Dependabot files for security problems such as template injection, credentials persisted in checkouts and unpinned actions, and fails on any finding of low severity or above; informational findings, such as an expression of a trusted value in a `run:` block, are left out. zizmor reads `GH_TOKEN` for the audits that query GitHub, such as a tag that moved away from a pinned commit, and skips them without a token; `breto run ci-zizmor --format github` annotates the findings in a workflow run. A finding the code needs is suppressed on its line with `# zizmor: ignore[AUDIT]` and the reason. `ci-markdown` lints the Markdown git tracks, so ignored directories such as `node_modules` stay out of it. `ci-harper` lints the prose under `docs` and `kb`, or the whole tree when neither exists, with spell checking and title case off; `HARPER_IGNORE` adds further rules to skip. The `Verify` workflow runs `ci-lint` on this repository through its own `.breto.edn`, which names `@lint` and skips the harper rules that lowercase tool names trip.
 
 ## Helm
 
 helm-unittest is a helm plugin and links no command. In a project using `@helm`, `breto env` sets `HELM_PLUGINS` to a directory holding the project's plugins, where `helm unittest` finds it. Outside a project, helm does not see the plugin.
+
+## Java
+
+A project names one of `@jdk17`, `@jdk25` and `@graalvm`, since breto refuses two packages that set `JAVA_HOME` to different values. `@maven` and the `tlc` command of `@tlaplus` run on whichever of them the project names.
 
 ## Go
 

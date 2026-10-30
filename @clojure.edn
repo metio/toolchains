@@ -1,0 +1,7 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members ["@babashka"
+           ;; renovate: datasource=github-releases depName=clj-kondo/clj-kondo extractVersion=^v(?<version>.+)$
+           "clj-kondo@2026.10.26"]
+ :commands {"clojure" {:run ["bb" "clojure"] :description "The Clojure CLI, run by the deps.clj that babashka carries"}}}

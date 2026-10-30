@@ -1,0 +1,5 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=theseus-rs/postgresql-binaries
+           "postgresql-binaries@18.6.1"]}

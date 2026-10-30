@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.head_ref || github.ref_name }}
-          token: ${{ steps.token.outputs.token }}
+          token: ${{ steps.token.outputs.token }} # zizmor: ignore[artipacked] the job pushes breto.lock with it
       - uses: metio/breto@4c3ff90106d75c0d25543cd9305a496d8b67e514 # 2026.10.30064817
         with:
           registries: .
