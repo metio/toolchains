@@ -44,7 +44,7 @@ jobs:
         run: |
           printf '{:registries ["%s/.breto/packages" "%s"] :store "%s/store" :bin-dir "%s/bin"}\n' \
             "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE" "$RUNNER_TEMP" "$RUNNER_TEMP" > "$RUNNER_TEMP/config.edn"
-          nix develop ./.breto --command ./.breto/breto lock . --config "$RUNNER_TEMP/config.edn"
+          nix develop ./.breto --command ./.breto/breto lock . --platforms all --config "$RUNNER_TEMP/config.edn"
       - name: Push the lock file
         env:
           APP_SLUG: ${{ steps.token.outputs.app-slug }}

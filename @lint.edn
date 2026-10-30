@@ -20,4 +20,24 @@
            ;; renovate: datasource=node-version depName=node
            "node@26.13.0"
            ;; renovate: datasource=npm depName=markdownlint-cli2
-           "markdownlint-cli2@0.24.0"]}
+           "markdownlint-cli2@0.24.0"]
+ :commands {"ci-reuse" {:run ["reuse" "lint"]}
+            "ci-typos" {:run ["typos"]}
+            "ci-yaml" {:run ["yamllint" "."]}
+            "ci-actionlint" {:run ["actionlint"]}
+            "ci-markdown" {:run "if [ \"$#\" -gt 0 ]; then exec markdownlint-cli2 \"$@\"; fi
+if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+  git ls-files -z -- '*.md' '*.markdown' | xargs -0 -r markdownlint-cli2
+else
+  exec markdownlint-cli2 '**/*.md'
+fi"
+                           :description "Lint the Markdown git tracks, or the files given"}
+            "ci-harper" {:run "ignore=\"SpellCheck,UseTitleCase${HARPER_IGNORE:+,$HARPER_IGNORE}\"
+if [ \"$#\" -eq 0 ]; then
+  for d in docs kb; do if [ -d \"$d\" ]; then set -- \"$@\" \"$d\"; fi; done
+  if [ \"$#\" -eq 0 ]; then set -- .; fi
+fi
+find \"$@\" -name '*.md' -not -path './.git/*' -print0 | xargs -0 harper-cli lint --ignore \"$ignore\""
+                         :description "Lint the prose of docs and kb, or of the paths given"}
+            "ci-lint" {:depends ["ci-reuse" "ci-typos" "ci-yaml" "ci-actionlint" "ci-markdown" "ci-harper"]
+                       :description "Every lint"}}}

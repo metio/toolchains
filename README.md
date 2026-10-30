@@ -47,6 +47,8 @@ The App needs the `Contents: write` permission on this repository. Its client ID
 
 `@lint` holds the checks most repositories run in CI. reuse and yamllint come from PyPI, so breto installs them with uv, which the group pins as well. markdownlint-cli2 comes from npm, so breto installs it with the group's node, which also runs it. Their lock entries pin every dependency by hash together with the cut-off time of the resolution.
 
+The group also defines the commands that run these checks the way CI runs them. In a project naming `@lint`, `breto run ci-lint` runs every one of them, and `ci-reuse`, `ci-typos`, `ci-yaml`, `ci-actionlint`, `ci-markdown` and `ci-harper` run one each, with arguments passed on. `ci-markdown` lints the Markdown git tracks, so ignored directories such as `node_modules` stay out of it. `ci-harper` lints the prose under `docs` and `kb`, or the whole tree when neither exists, with spell checking and title case off; `HARPER_IGNORE` adds further rules to skip.
+
 ## Helm
 
 helm-unittest is a helm plugin and links no command. In a project using `@helm`, `breto env` sets `HELM_PLUGINS` to a directory holding the project's plugins, where `helm unittest` finds it. Outside a project, helm does not see the plugin.
