@@ -1,0 +1,5 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=kubernetes-sigs/controller-tools extractVersion=^envtest-v(?<version>.+)$
+           "envtest@1.36.2"]}

@@ -1,0 +1,11 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.+)$
+           "hugo-extended@0.169.0"
+           ;; renovate: datasource=github-releases depName=wjdp/htmltest extractVersion=^v(?<version>.+)$
+           "htmltest@0.17.0"
+           ;; renovate: datasource=github-releases depName=biomejs/biome extractVersion=^@biomejs/biome@(?<version>.+)$
+           "biome@2.6.4"
+           ;; renovate: datasource=github-releases depName=errata-ai/vale extractVersion=^v(?<version>.+)$
+           "vale@3.25.1"]}

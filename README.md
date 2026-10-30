@@ -41,7 +41,10 @@ A project then names the group in its `.breto.edn`:
 | `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2 |
 | `@helm` | helm, helm-schema, helm-unittest |
 | `@babashka` | babashka |
-| `@containers` | hadolint |
+| `@containers` | hadolint, cosign |
+| `@envtest` | envtest, whose `KUBEBUILDER_ASSETS` points controller-runtime's envtest at etcd, kube-apiserver and kubectl |
+| `@docs` | hugo-extended, htmltest, biome, vale |
+| `@jsonnet` | go-jsonnet, jsonnet-bundler |
 
 ## Releases
 
