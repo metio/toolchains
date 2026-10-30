@@ -31,7 +31,7 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ steps.token.outputs.token }}
-      - uses: metio/breto@d9a9820ae0de2f82b205072487e27be96304661a # 2026.10.30054849
+      - uses: metio/breto@be70a5c4fc1d3a9c38e545451e11a3b429e64c60 # 2026.10.30061632
         with:
           registries: .
       - name: Record the hashes of the pinned versions
