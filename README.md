@@ -9,12 +9,13 @@ Shared toolchains for [breto](https://github.com/metio/breto): each `@NAME.edn` 
 
 ## Usage
 
-Clone the repository and add the clone to the `:registries` of the breto config, after the directory holding the package definitions:
+Clone the repository and add the clone to the `:registries` of the breto config:
 
 ```clojure
-{:registries ["/home/me/git/github.com/metio/breto/packages"
-              "/home/me/git/github.com/metio/toolchains"]}
+{:registries ["~/git/github.com/metio/toolchains"]}
 ```
+
+The groups name packages that breto defines; a breto release carries those definitions, so no clone of breto is needed. A group member whose definition only a newer breto release has fails as an unknown package until breto is updated; `breto update` keeps it current when `breto` is in `:packages`.
 
 A project then names the group in its `.breto.edn`:
 
