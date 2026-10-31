@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: The toolchains Authors
+# SPDX-License-Identifier: 0BSD
+
+cff-version: 1.2.0
+title: toolchains
+message: If you use this software, please cite it as below.
+type: software
+authors:
+- family-names: Hoß
+  given-names: Sebastian
+  email: seb@hoß.de
+url: https://github.com/metio/toolchains/
+license: 0BSD
