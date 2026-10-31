@@ -18,7 +18,7 @@ Add the published registry to the `:registries` of the breto config:
 breto installs the latest signed release of this repository before the other packages on `breto update` and `breto sync`. In GitHub Actions, the breto action takes the same registry as a line of its `registries` input:
 
 ```yaml
-- uses: metio/breto@VERSION
+- uses: metio/ci/breto@VERSION
   with:
     registries: github:metio/toolchains
 ```
