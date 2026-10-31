@@ -31,7 +31,7 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           token: ${{ steps.token.outputs.token }} # zizmor: ignore[artipacked] the job pushes breto.lock with it
-      - uses: metio/breto@4c3ff90106d75c0d25543cd9305a496d8b67e514 # 2026.10.30064817
+      - uses: metio/breto@3d35cbfa61e9b8e98fe3d92113390a6db219b66c # 2026.10.30182439
         with:
           registries: .
       - name: Record the hashes of the pinned versions
