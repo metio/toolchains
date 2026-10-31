@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-      - uses: metio/breto@4c3ff90106d75c0d25543cd9305a496d8b67e514 # 2026.10.30064817
+      - uses: metio/breto@3d35cbfa61e9b8e98fe3d92113390a6db219b66c # 2026.10.30182439
         with:
           registries: .
       - name: Lint
