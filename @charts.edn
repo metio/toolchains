@@ -1,0 +1,17 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=helm/chart-testing extractVersion=^v(?<version>.+)$
+           "chart-testing@3.15.0"
+           ;; renovate: datasource=github-releases depName=astral-sh/uv
+           "uv@0.13.6"
+           ;; renovate: datasource=pypi depName=yamale
+           "yamale@6.1.0"
+           ;; renovate: datasource=pypi depName=yamllint
+           "yamllint@1.38.0"
+           ;; renovate: datasource=github-releases depName=norwoodj/helm-docs extractVersion=^v(?<version>.+)$
+           "helm-docs@1.14.2"
+           ;; renovate: datasource=github-releases depName=zegl/kube-score extractVersion=^v(?<version>.+)$
+           "kube-score@1.20.0"
+           ;; renovate: datasource=github-releases depName=yannh/kubeconform extractVersion=^v(?<version>.+)$
+           "kubeconform@0.8.0"]}

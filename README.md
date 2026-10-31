@@ -40,6 +40,7 @@ A project then names the group in its `.breto.edn`:
 | `@go` | go, staticcheck, gosec, gofumpt, arch-go, delve, govulncheck, gopls, modernize |
 | `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2 |
 | `@helm` | helm, helm-schema, helm-unittest |
+| `@charts` | chart-testing with the yamale and yamllint it calls, helm-docs, kube-score and kubeconform |
 | `@babashka` | babashka |
 | `@containers` | hadolint, cosign |
 | `@envtest` | envtest, whose `KUBEBUILDER_ASSETS` points controller-runtime's envtest at etcd, kube-apiserver and kubectl |
