@@ -2,6 +2,4 @@
 ;; SPDX-License-Identifier: 0BSD
 
 {:members [;; renovate: datasource=github-releases depName=tlaplus/tlaplus extractVersion=^v(?<version>.+)$
-           "tla2tools@1.7.4"]
- :commands {"tlc" {:run "exec java -XX:+UseParallelGC -cp {bin}/tla2tools.jar tlc2.TLC \"$@\""
-                   :description "The TLC model checker, on the java of the project"}}}
+           "tla2tools@1.7.4"]}
