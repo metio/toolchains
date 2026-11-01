@@ -41,5 +41,5 @@ if [ \"$#\" -eq 0 ]; then
 fi
 find \"$@\" -name '*.md' -not -path './.git/*' -print0 | xargs -0 harper-cli lint --ignore \"$ignore\""
                          :description "Lint the prose of docs and kb, or of the paths given"}
-            "ci-lint" {:depends ["ci-reuse" "ci-typos" "ci-yaml" "ci-actionlint" "ci-zizmor" "ci-markdown" "ci-harper"]
-                       :description "Every lint"}}}
+            "ci-lint" {:depends ["ci-typos" "ci-yaml" "ci-actionlint" "ci-zizmor" "ci-markdown"]
+                       :description "The lints every repository runs in CI"}}}

@@ -25,6 +25,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: breto run ci-lint
+      - name: Lint the prose
+        run: breto run ci-harper
       - name: Check that breto.lock pins every version the groups name
         env:
           GITHUB_TOKEN: ${{ github.token }}
