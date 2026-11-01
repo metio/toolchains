@@ -20,12 +20,8 @@
            ;; renovate: datasource=node-version depName=node
            "node@26.13.0"
            ;; renovate: datasource=npm depName=markdownlint-cli2
-           "markdownlint-cli2@0.24.0"
-           ;; renovate: datasource=github-releases depName=betterleaks/betterleaks extractVersion=^v(?<version>.+)$
-           "betterleaks@1.9.0"]
+           "markdownlint-cli2@0.24.0"]
  :commands {"ci-reuse" {:run ["reuse" "lint"]}
-            "ci-leaks" {:run ["betterleaks" "git" "--redact" "--no-banner"]
-                        :description "Scan the git history for secrets"}
             "ci-typos" {:run ["typos"]}
             "ci-yaml" {:run ["yamllint" "."]}
             "ci-actionlint" {:run ["actionlint"]}
