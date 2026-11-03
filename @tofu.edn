@@ -1,0 +1,7 @@
+;; SPDX-FileCopyrightText: The toolchains Authors
+;; SPDX-License-Identifier: 0BSD
+
+{:members [;; renovate: datasource=github-releases depName=opentofu/opentofu extractVersion=^v(?<version>.+)$
+           "opentofu@1.13.2"
+           ;; renovate: datasource=github-releases depName=terraform-linters/tflint extractVersion=^v(?<version>.+)$
+           "tflint@0.65.0"]}

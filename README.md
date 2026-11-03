@@ -55,6 +55,8 @@ A project then names the group in its `.breto.edn`:
 | `@tlaplus` | tla2tools, whose command `tlc` runs the TLC model checker on the java of the project |
 | `@rust` | rustup, whose proxies such as `cargo` and `rustc` run the toolchain the project's `rust-toolchain.toml` names, else rustup's default |
 | `@terraform` | terraform |
+| `@tofu` | opentofu, tflint |
+| `@kubernetes` | kubesec |
 
 ## Releases
 
