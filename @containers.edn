@@ -4,4 +4,6 @@
 {:members [;; renovate: datasource=github-releases depName=hadolint/hadolint extractVersion=^v(?<version>.+)$
            "hadolint@2.15.1"
            ;; renovate: datasource=github-releases depName=sigstore/cosign extractVersion=^v(?<version>.+)$
-           "cosign@3.1.4"]}
+           "cosign@3.1.4"
+           ;; renovate: datasource=github-releases depName=aquasecurity/trivy extractVersion=^v(?<version>.+)$
+           "trivy@0.76.1"]}
