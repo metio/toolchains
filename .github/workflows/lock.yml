@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   lock:
-    # Renovate's branches only: the job pushes with an app token, which a pull
+    # Renovate's branches only: the job pushes with a deploy key, which a pull
     # request from a fork must never reach.
     if: >-
       github.event_name == 'workflow_dispatch' ||
@@ -22,16 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - id: token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        with:
-          client-id: ${{ vars.LOCK_APP_CLIENT_ID }}
-          private-key: ${{ secrets.LOCK_APP_PRIVATE_KEY }}
-          permission-contents: write
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.head_ref || github.ref_name }}
-          token: ${{ steps.token.outputs.token }} # zizmor: ignore[artipacked] the job pushes breto.lock with it
+          ssh-key: ${{ secrets.LOCK_DEPLOY_KEY }}
+          persist-credentials: true # zizmor: ignore[artipacked] the job pushes breto.lock with it
       - uses: metio/ci/breto@6e8776dc59abdfffa793903f100e89f1aacb9c2e # 2026.11.2023135
         with:
           registries: .
@@ -40,15 +35,13 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: breto lock . --platforms all
       - name: Push the lock file
-        env:
-          APP_SLUG: ${{ steps.token.outputs.app-slug }}
         run: |
           if git diff --quiet -- breto.lock && git ls-files --error-unmatch breto.lock >/dev/null 2>&1; then
             echo "breto.lock is up to date"
             exit 0
           fi
-          git config user.name "${APP_SLUG}[bot]"
-          git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add breto.lock
-          git commit --message "chore: lock the pinned versions"
+          git commit --signoff --message "chore: lock the pinned versions"
           git push

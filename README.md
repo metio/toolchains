@@ -69,11 +69,11 @@ Every change to a group or to `breto.lock` that reaches `main` is released under
 CI writes the file, so a Renovate bump needs nothing run locally:
 
 1. Renovate opens a pull request that changes a version in a group.
-2. The `Lock` workflow installs the pinned versions, writes `breto.lock` and pushes it to the pull request's branch with a GitHub App token. A push made with the workflow's own token would start no further workflows, so the checks would never rerun.
-3. The `Verify` workflow reruns on that push. `breto lock . --check` fails while the file lags behind the groups, and an existing entry whose upstream asset has changed fails the install instead of being locked anew.
+2. The `Lock` workflow installs the pinned versions, writes `breto.lock` and pushes it to the pull request's branch with a deploy key. A push made with the workflow's own token would start no further workflows, so the checks would never rerun.
+3. The `Verify` workflow reruns on that push, which it runs on for `renovate/**` branches as well as `main`, since a deploy-key push may start push workflows only. `breto lock . --check` fails while the file lags behind the groups, and an existing entry whose upstream asset has changed fails the install instead of being locked anew.
 4. Renovate merges once the checks pass, and machines pick the change up with their next pull and `breto sync`.
 
-The App needs the `Contents: write` permission on this repository. Its client ID goes into the repository variable `LOCK_APP_CLIENT_ID` and a private key into the secret `LOCK_APP_PRIVATE_KEY`. The workflow only runs for branches named `renovate/*` in this repository, and on manual dispatch, which locks the branch it runs on; a dispatch on `main` creates the first lock file.
+The deploy key has write access to this repository, and its private key is in the secret `LOCK_DEPLOY_KEY`. The `deploy-key` module of metio/infrastructure creates both. The workflow only runs for branches named `renovate/*` in this repository, and on manual dispatch, which locks the branch it runs on; a dispatch on `main` creates the first lock file.
 
 ## Lint
 

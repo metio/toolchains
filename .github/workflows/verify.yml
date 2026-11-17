@@ -6,8 +6,10 @@ on:
   merge_group:
   pull_request:
     branches: [main]
+  # The Lock workflow pushes breto.lock to Renovate's branches with a deploy
+  # key, and such a push starts push workflows only.
   push:
-    branches: [main]
+    branches: [main, "renovate/**"]
 permissions:
   contents: read
 jobs:
