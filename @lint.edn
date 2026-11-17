@@ -20,7 +20,9 @@
            ;; renovate: datasource=node-version depName=node
            "node@26.13.0"
            ;; renovate: datasource=npm depName=markdownlint-cli2
-           "markdownlint-cli2@0.24.0"]
+           "markdownlint-cli2@0.24.0"
+           ;; renovate: datasource=npm depName=renovate
+           "renovate@44.249.2"]
  :commands {"ci-reuse" {:run ["reuse" "lint"]}
             "ci-typos" {:run ["typos"]}
             "ci-yaml" {:run ["yamllint" "."]}
@@ -41,5 +43,7 @@ if [ \"$#\" -eq 0 ]; then
 fi
 find \"$@\" -name '*.md' -not -path './.git/*' -print0 | xargs -0 harper-cli lint --ignore \"$ignore\""
                          :description "Lint the prose of docs and kb, or of the paths given"}
-            "ci-lint" {:depends ["ci-typos" "ci-yaml" "ci-actionlint" "ci-zizmor" "ci-markdown"]
+            "ci-renovate" {:run ["renovate-config-validator"]
+                           :description "Validate the repository's Renovate configuration"}
+            "ci-lint" {:depends ["ci-typos" "ci-yaml" "ci-actionlint" "ci-zizmor" "ci-markdown" "ci-renovate"]
                        :description "The lints every repository runs in CI"}}}

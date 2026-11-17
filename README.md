@@ -38,7 +38,7 @@ A project then names the group in its `.breto.edn`:
 | Group | Tools |
 | --- | --- |
 | `@go` | go, staticcheck, gosec, gofumpt, arch-go, delve, govulncheck, gopls, modernize |
-| `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2 |
+| `@lint` | uv, reuse, yamllint, typos, actionlint, shellcheck, harper-cli, zizmor, node, markdownlint-cli2, renovate |
 | `@helm` | helm, helm-schema, helm-unittest |
 | `@charts` | chart-testing with the yamale and yamllint it calls, helm-docs, kube-score and kubeconform |
 | `@babashka` | babashka |
