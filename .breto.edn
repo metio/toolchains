@@ -1,5 +1,4 @@
 ;; SPDX-FileCopyrightText: The toolchains Authors
 ;; SPDX-License-Identifier: 0BSD
 
-{:packages ["@lint"]
- :env {"HARPER_IGNORE" "SentenceCapitalization,SplitWords,OrthographicConsistency,ExpandConfiguration,CompoundNouns,MassNouns,Everyone"}}
+{:packages ["@lint"]}
